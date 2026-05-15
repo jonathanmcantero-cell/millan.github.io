@@ -1,17 +1,406 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Millan Construcciones LLC - Professional Construction</title>
-    <meta name="description" content="Millan Construcciones LLC delivers high-quality construction and remodeling services with professionalism, precision, and trust in Everett, WA.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millan Construcciones LLC - Professional Construction & Remodeling</title>
+    <!-- Tailwind CSS (No Build Required) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ff7a00',
+                        'primary-hover': '#e06a00'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #000000; color: #ffffff; }
+        
+        /* Lightweight Animations */
+        .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+        .animate-fade { opacity: 0; transition: opacity 0.6s ease-out; }
+        .animate-fade.is-visible { opacity: 1; }
+        
+        /* Language System */
+        .lang-es .only-en { display: none !important; }
+        .lang-en .only-es { display: none !important; }
+    </style>
+</head>
+<body class="lang-en selection:bg-primary selection:text-black antialiased">
+    
+    <!-- HEADER -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 bg-[#0a0a0a] shadow-md shadow-primary/5 py-3 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <a href="#home" class="flex items-center gap-2 text-2xl font-bold tracking-tighter hover:opacity-80 transition-opacity">
+                <img src="./logo.png" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 object-contain" onerror="this.style.display='none'">
+                <div class="flex flex-col justify-center">
+                  <span class="text-primary leading-none">MILLAN</span>
+                  <span class="font-light tracking-widest text-[0.55rem] sm:text-[0.6rem] hidden sm:block mt-0.5 text-white/80">CONSTRUCCIONES LLC</span>
+                </div>
+              </a>
+            </div>
 
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-6 lg:gap-8">
+              <a href="#home" class="text-sm font-medium hover:text-primary transition-colors"><span class="only-en">Home</span><span class="only-es">Inicio</span></a>
+              <a href="#about" class="text-sm font-medium hover:text-primary transition-colors"><span class="only-en">About Us</span><span class="only-es">Nosotros</span></a>
+              <a href="#services" class="text-sm font-medium hover:text-primary transition-colors"><span class="only-en">Services</span><span class="only-es">Servicios</span></a>
+              <a href="#gallery" class="text-sm font-medium hover:text-primary transition-colors"><span class="only-en">Gallery</span><span class="only-es">Galería</span></a>
+              <a href="#whyus" class="text-sm font-medium hover:text-primary transition-colors"><span class="only-en">Why Us</span><span class="only-es">Por qué elegirnos</span></a>
+              <a href="#contact" class="text-sm font-medium hover:text-primary transition-colors"><span class="only-en">Contact</span><span class="only-es">Contacto</span></a>
+              
+              <button onclick="toggleLang()" class="flex items-center gap-2 bg-white/10 hover:bg-primary border border-white/10 hover:border-primary hover:text-black transition-colors px-4 py-2 rounded-full text-sm font-semibold">
+                <i data-lucide="globe" class="w-4 h-4"></i>
+                <span class="only-en">ESPAÑOL</span><span class="only-es">ENGLISH</span>
+              </button>
+            </nav>
+
+            <!-- Mobile Controls -->
+            <div class="flex items-center gap-3 md:hidden">
+              <button onclick="toggleLang()" class="flex items-center justify-center bg-white/5 hover:bg-primary border border-white/10 hover:text-black transition-colors w-9 h-9 rounded-full text-xs font-bold uppercase text-white hover:text-black">
+                <span class="only-en">ES</span><span class="only-es">EN</span>
+              </button>
+              <button onclick="toggleMenu()" class="text-white hover:text-primary transition-colors p-1 rounded-md">
+                <i data-lucide="menu" id="menu-icon"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <nav id="mobile-menu" class="hidden md:hidden bg-neutral-950 border-t border-white/10 overflow-hidden">
+          <div class="flex flex-col px-4 py-4 space-y-1">
+              <a href="#home" onclick="toggleMenu()" class="text-base font-medium text-white/80 hover:text-primary hover:bg-white/5 px-4 py-3 rounded-lg"><span class="only-en">Home</span><span class="only-es">Inicio</span></a>
+              <a href="#about" onclick="toggleMenu()" class="text-base font-medium text-white/80 hover:text-primary hover:bg-white/5 px-4 py-3 rounded-lg"><span class="only-en">About Us</span><span class="only-es">Nosotros</span></a>
+              <a href="#services" onclick="toggleMenu()" class="text-base font-medium text-white/80 hover:text-primary hover:bg-white/5 px-4 py-3 rounded-lg"><span class="only-en">Services</span><span class="only-es">Servicios</span></a>
+              <a href="#gallery" onclick="toggleMenu()" class="text-base font-medium text-white/80 hover:text-primary hover:bg-white/5 px-4 py-3 rounded-lg"><span class="only-en">Gallery</span><span class="only-es">Galería</span></a>
+              <a href="#whyus" onclick="toggleMenu()" class="text-base font-medium text-white/80 hover:text-primary hover:bg-white/5 px-4 py-3 rounded-lg"><span class="only-en">Why Us</span><span class="only-es">Por qué elegirnos</span></a>
+              <a href="#contact" onclick="toggleMenu()" class="text-base font-medium text-white/80 hover:text-primary hover:bg-white/5 px-4 py-3 rounded-lg"><span class="only-en">Contact</span><span class="only-es">Contacto</span></a>
+          </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden bg-neutral-950">
+        <div class="relative z-10 text-center max-w-5xl mx-auto px-4 flex flex-col items-center mt-10 md:mt-0 animate-fade">
+            <div class="w-32 h-32 md:w-48 md:h-48 rounded-2xl bg-[#0a0a0a] border border-white/10 flex items-center justify-center mb-8 shadow-xl relative overflow-hidden p-4">
+                <img src="./logo.png" onerror="this.style.display='none'" class="w-full h-full drop-shadow-lg object-contain">
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
+                <span class="block"><span class="only-en">Professional</span><span class="only-es">Servicios Profesionales de</span></span>
+                <span class="text-primary mt-2 block"><span class="only-en">Construction & Remodeling</span><span class="only-es">Construcción y Remodelación</span></span>
+                <span class="block only-en">Services</span>
+            </h1>
+            <p class="text-base md:text-xl text-neutral-400 mb-10 max-w-2xl mx-auto font-medium">
+                <span class="only-en">Building your dreams with precision, quality, and trust. Professional solutions for every project in Everett, WA.</span>
+                <span class="only-es">Construyendo sus sueños con precisión, calidad y confianza. Soluciones profesionales para cada proyecto en Everett, WA.</span>
+            </p>
+            <a href="#contact" class="inline-block bg-primary hover:bg-primary-hover text-black font-bold text-lg px-8 py-4 rounded-xl transition-transform hover:scale-105 shadow-lg">
+                <span class="only-en">Get Free Estimate</span><span class="only-es">Solicitar Presupuesto</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-24 bg-[#0a0a0a] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 animate-on-scroll">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary uppercase tracking-wider text-xs font-bold mb-2">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    <span class="only-en">About Us</span><span class="only-es">Sobre Nosotros</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+                    <span class="text-primary">Millan</span> Construcciones LLC
+                </h2>
+                <div class="w-16 h-1 bg-primary rounded-full"></div>
+                <p class="text-neutral-300 text-lg leading-relaxed">
+                    <span class="only-en">Millan Construcciones LLC delivers high-quality construction and remodeling services with professionalism, precision, and trust. We transform homes and spaces with durable finishes and exceptional craftsmanship.</span>
+                    <span class="only-es">Millan Construcciones LLC ofrece servicios de construcción y remodelación de alta calidad con profesionalismo, precisión y confianza. Transformamos hogares y espacios con acabados duraderos y excelente mano de obra.</span>
+                </p>
+                <ul class="space-y-4 pt-4">
+                    <li class="flex items-center gap-4 text-neutral-200 bg-neutral-900/50 p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0"><i data-lucide="star" class="w-5 h-5"></i></div>
+                        <span class="font-semibold"><span class="only-en">Professional Quality</span><span class="only-es">Calidad Profesional</span></span>
+                    </li>
+                    <li class="flex items-center gap-4 text-neutral-200 bg-neutral-900/50 p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                        <span class="font-semibold"><span class="only-en">Reliable Service</span><span class="only-es">Servicio Confiable</span></span>
+                    </li>
+                    <li class="flex items-center gap-4 text-neutral-200 bg-neutral-900/50 p-4 rounded-xl border border-white/5">
+                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0"><i data-lucide="users" class="w-5 h-5"></i></div>
+                        <span class="font-semibold"><span class="only-en">Experienced Team</span><span class="only-es">Equipo Experimentado</span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="relative h-[400px] md:h-[500px] w-full rounded-2xl overflow-hidden border border-white/10 group bg-neutral-900 animate-on-scroll">
+                <img src="./PlaceHolder.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-24 bg-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300 uppercase tracking-wider text-xs font-bold mb-4">
+                    <i data-lucide="ruler" class="text-primary w-4 h-4"></i>
+                    <span class="only-en">Our Services</span><span class="only-es">Nuestros Servicios</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold">
+                    <span class="only-en">Our <span class="text-primary">Expertise</span></span>
+                    <span class="only-es">Nuestras <span class="text-primary">Especialidades</span></span>
+                </h2>
+            </div>
+            <div id="services-target" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 animate-on-scroll"></div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="py-24 bg-[#0a0a0a] border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-16 space-y-4 animate-on-scroll">
+                <h2 class="text-3xl md:text-5xl font-bold"><span class="only-en">Our Work</span><span class="only-es">Nuestro Trabajo</span></h2>
+                <p class="text-neutral-400 max-w-2xl mx-auto px-4">
+                  <span class="only-en">Explore some of our recent construction and remodeling projects.</span>
+                  <span class="only-es">Explore algunos de nuestros proyectos recientes de construcción y remodelación.</span>
+                </p>
+            </div>
+            <div id="gallery-target" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 auto-rows-[200px] sm:auto-rows-[250px] md:auto-rows-[300px] animate-on-scroll"></div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section id="whyus" class="py-24 bg-black border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6"><span class="only-en">Why Choose Us</span><span class="only-es">Por Qué Elegirnos</span></h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div id="why-target" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-on-scroll"></div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-24 bg-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16">
+            <div class="space-y-8 animate-on-scroll">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4"><span class="only-en">Contact Us</span><span class="only-es">Contáctenos</span></h2>
+                    <p class="text-neutral-400 text-lg">
+                      <span class="only-en">Ready to start your project? Contact us today for a free estimate.</span>
+                      <span class="only-es">¿Listo para comenzar su proyecto? Contáctenos hoy para un presupuesto gratuito.</span>
+                    </p>
+                </div>
+                <div class="space-y-6">
+                    <h3 class="text-xl font-semibold mb-6 pb-2 border-b border-primary/20 text-primary"><span class="only-en">Contact Information</span><span class="only-es">Información de Contacto</span></h3>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-black border border-white/10 flex items-center justify-center text-primary shrink-0"><i data-lucide="map-pin"></i></div>
+                        <div class="mt-1">
+                            <h4 class="text-white font-medium text-base">Location</h4>
+                            <p class="text-neutral-400">Everett, WA</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-black border border-white/10 flex items-center justify-center text-primary shrink-0"><i data-lucide="phone"></i></div>
+                        <div class="mt-1">
+                            <h4 class="text-white font-medium text-base">Phone</h4>
+                            <a href="tel:+1234567890" class="text-neutral-400 hover:text-primary transition-colors text-base">+1 (234) 567-890</a>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-black border border-white/10 flex items-center justify-center text-primary shrink-0"><i data-lucide="mail"></i></div>
+                        <div class="mt-1">
+                            <h4 class="text-white font-medium text-base">Email</h4>
+                            <a href="mailto:info@millanconstrucciones.com" class="text-neutral-400 hover:text-primary transition-colors">info@millanconstrucciones.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="animate-on-scroll">
+                <form id="contact-form" class="bg-black p-6 md:p-10 rounded-2xl md:rounded-3xl border border-white/10 shadow-lg relative overflow-hidden" onsubmit="handleContact(event)">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-orange-400 to-primary"></div>
+                    <h3 class="text-2xl font-bold mb-6 md:mb-8"><span class="only-en">Send us a message</span><span class="only-es">Envíenos un mensaje</span></h3>
+                    
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm text-neutral-400 font-medium"><span class="only-en">Your Name</span><span class="only-es">Su Nombre</span></label>
+                                <input required type="text" class="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="John Doe">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm text-neutral-400 font-medium"><span class="only-en">Your Phone</span><span class="only-es">Su Teléfono</span></label>
+                                <input required type="tel" class="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="+1 (555) 000-0000">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm text-neutral-400 font-medium"><span class="only-en">Your Email</span><span class="only-es">Su Correo</span></label>
+                            <input required type="email" class="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="john@example.com">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm text-neutral-400 font-medium"><span class="only-en">Your Message</span><span class="only-es">Su Mensaje</span></label>
+                            <textarea required rows="4" class="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none" placeholder="..."></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="w-full bg-primary text-black font-bold text-base px-8 py-4 rounded-xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2">
+                            <span class="only-en">Send Message</span><span class="only-es">Enviar Mensaje</span>
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-10 border-t border-white/10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 text-center text-neutral-500">
+            <div class="text-xl font-bold tracking-tighter mb-4"><span class="text-primary">MILLAN</span> <span class="text-white">CONSTRUCCIONES LLC</span></div>
+            <p>&copy; 2026 Millan Construcciones LLC. <span class="only-en">All rights reserved.</span><span class="only-es">Todos los derechos reservados.</span></p>
+        </div>
+    </footer>
+
+    <!-- WIDGETS -->
+    <a href="https://wa.me/1234567890" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 z-50">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
+    <button id="back-top" onclick="window.scrollTo(0, 0)" class="fixed bottom-24 right-6 w-12 h-12 bg-neutral-800 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-primary hover:text-black transition-colors z-40 opacity-0 pointer-events-none duration-300">
+        <i data-lucide="chevron-up"></i>
+    </button>
+
+    <!-- LOGIC (No build needed) -->
+    <script>
+        // Data
+        const services = [
+            { en: "Interior Demolition", es: "Demolición Interior", icon: "hammer" },
+            { en: "Drywall / Sheetrock", es: "Drywall / Sheetrock", icon: "square" },
+            { en: "Wall & Ceiling Texture", es: "Textura de Paredes y Techos", icon: "brush" },
+            { en: "Interior / Exterior Painting", es: "Pintura Interior / Exterior", icon: "paintbrush" },
+            { en: "Flooring Installation", es: "Instalación de Pisos", icon: "layout-grid" },
+            { en: "Baseboards, Trim & Door", es: "Zócalos, Molduras y Puertas", icon: "door-open" },
+            { en: "Door Installation", es: "Instalación de Puertas", icon: "door-closed" },
+            { en: "Cabinets / Backsplash", es: "Gabinetes / Backsplash", icon: "grid-3x3" },
+            { en: "Bathroom Remodeling", es: "Remodelación de Baños", icon: "bath" },
+            { en: "Siding Installation & Repair", es: "Instalación y Reparación de Siding", icon: "home" },
+            { en: "Fence Installation", es: "Instalación de Cercas", icon: "fence" },
+            { en: "Deck & Porch Construction", es: "Construcción de Decks y Porches", icon: "layout" },
+            { en: "Windows & Exterior", es: "Ventanas y Exterior", icon: "app-window" }
+        ];
+
+        const whyUs = [
+            { en: "Professional Quality", es: "Calidad Profesional", icon: "star" },
+            { en: "Reliable Service", es: "Servicio Confiable", icon: "shield-check" },
+            { en: "Experienced Team", es: "Equipo Experimentado", icon: "users" },
+            { en: "Affordable Pricing", es: "Precios Accesibles", icon: "dollar-sign" },
+            { en: "Licensed & Insured", es: "Licenciados y Asegurados", icon: "file-badge" },
+            { en: "Fast Project Delivery", es: "Entrega Rápida", icon: "clock" }
+        ];
+
+        // Render functions
+        document.getElementById("services-target").innerHTML = services.map(s => `
+            <div class="group bg-[#0a0a0a] border border-white/5 hover:border-primary/40 rounded-2xl p-5 md:p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg relative overflow-hidden flex flex-col">
+                <div class="w-12 h-12 bg-black rounded-xl border border-white/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:border-primary text-primary group-hover:text-black transition-colors">
+                    <i data-lucide="${s.icon}"></i>
+                </div>
+                <h3 class="text-base font-bold text-white group-hover:text-primary mt-auto">
+                    <span class="only-en">${s.en}</span><span class="only-es">${s.es}</span>
+                </h3>
+            </div>
+        `).join('');
+
+        document.getElementById("why-target").innerHTML = whyUs.map(w => `
+            <div class="flex flex-col items-center text-center p-6 rounded-2xl bg-[#0a0a0a] border border-white/5 hover:border-primary/30 group">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-black border border-primary/20 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+                    <i data-lucide="${w.icon}" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-lg font-bold group-hover:text-primary"><span class="only-en">${w.en}</span><span class="only-es">${w.es}</span></h3>
+            </div>
+        `).join('');
+
+        document.getElementById("gallery-target").innerHTML = [1,2,3,4,5,6].map((i, idx) => `
+            <div class="group relative rounded-xl overflow-hidden bg-neutral-900 border border-white/5 cursor-pointer ${idx === 0 || idx === 3 ? 'md:col-span-2' : ''}">
+                <img src="./Proyecto ${i}.png" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div class="w-12 h-12 border-2 border-primary rounded-full flex items-center justify-center text-primary"><i data-lucide="star"></i></div>
+                </div>
+            </div>
+        `).join('');
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Language & Menu Interactivity
+        function toggleLang() {
+            const body = document.body;
+            if (body.classList.contains('lang-en')) {
+                body.classList.replace('lang-en', 'lang-es');
+            } else {
+                body.classList.replace('lang-es', 'lang-en');
+            }
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById("mobile-menu");
+            const icon = document.getElementById("menu-icon");
+            if (menu.classList.contains("hidden")) {
+                menu.classList.remove("hidden");
+                icon.setAttribute("data-lucide", "x");
+            } else {
+                menu.classList.add("hidden");
+                icon.setAttribute("data-lucide", "menu");
+            }
+            lucide.createIcons();
+        }
+
+        // Scroll Observers
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        document.querySelectorAll('.animate-on-scroll, .animate-fade').forEach(el => observer.observe(el));
+
+        // Form & Scroll Header
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('back-top');
+            if (window.scrollY > 500) {
+                btn.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                btn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        function handleContact(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = '...';
+            setTimeout(() => {
+                btn.innerHTML = '<span class="text-green-500 font-bold">Sent Successfully!</span>';
+                setTimeout(() => {
+                    btn.innerHTML = '<span class="only-en">Send Message</span><span class="only-es">Enviar Mensaje</span> <i data-lucide="message-circle" class="w-5 h-5"></i>';
+                    lucide.createIcons();
+                    e.target.reset();
+                }, 3000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
